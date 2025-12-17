@@ -14,9 +14,9 @@ typedef struct {
 int createStack(Stack* s);
 int isEmpty(Stack* s);
 int StackSize(Stack* s);
-int push(Stack* s, int position);
-int pop(Stack* s, int* position);
-int peek(Stack* s, int* position);
+int push(Stack* s, char letra);
+int pop(Stack* s, char* letra);
+int peek(Stack* s, char* letra);
 void destroyStack(Stack* s);
 
 #endif

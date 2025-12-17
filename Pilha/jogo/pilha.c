@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 typedef struct Node{
-    int position;
+    char letra;
     struct Node* next;
 } Node;
 
@@ -30,25 +30,25 @@ int StackSize(Stack* s) {
     return s->size;
 }
 
-int push(Stack* s, int position) {
+int push(Stack* s, char letra) {
     if (s == NULL) return 0;
 
     Node* newNode = (Node*)malloc(sizeof(Node));
     if(newNode == NULL) {
         return 0;
     }
-    newNode->position = position;
+    newNode->letra = letra;
     newNode->next = s->top;
     s->top = newNode;
     s->size++;
     return 1;
 }
 
-int pop(Stack* s, int* position) {
+int pop(Stack* s, char* letra) {
     if (isEmpty(s)) return 0;
 
     Node* temp = s->top;
-    *position = temp->position;
+    *letra = temp->letra;
     s->top = temp->next;
     free(temp);
     s->size--;
@@ -56,9 +56,9 @@ int pop(Stack* s, int* position) {
 }
 
 
-int peek(Stack* s, int* position) {
+int peek(Stack* s, char* letra) {
     if (isEmpty(s)) return 0;
-    *position = s->top->position;
+    *letra = s->top->letra;
     return 1;
 }
 

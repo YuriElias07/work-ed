@@ -1,28 +1,93 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#ifdef _WIN32
+    #include <windows.h>
+    #define SLEEP(ms) Sleep(ms)
+#else
+    #include <unistd.h>
+    #define SLEEP(ms) usleep((ms) * 1000)
+#endif
 
+#include <stdio.h>
+#include <time.h>
 #include "pilha.h"
-#include "input.h"
+
+char palavrasFacil[20][5] = {"casa", "amor", "vida", "fogo", "agua", "veto", "tera", "luaa", "sola", "nano",
+"diaa", "lago", "ruim", "bons", "doce", "sede", "frio", "calo", "pote", "gelo"};
+
+int gameOver = 0;
+int gameMode;
+Stack pilha;
+int aleatorio;
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+
+
+void criarPilha() {
+    destroyStack(&pilha);  
+    createStack(&pilha);
+    aleatorio = rand() % 20;
+    for (int i = 0; i < 4; i++) {
+        push(&pilha, palavrasFacil[aleatorio][i]);
+    }
+}
+
+void imprimirPalavra() {
+    
+    int i = 3;
+    while (i > 0){
+        printf("Palavra escolhida: %s\n", palavrasFacil[aleatorio]);
+        printf("Digite ela ao contrario em %d...", i);
+        i--;
+        SLEEP(3000);
+        clearScreen();
+    }
+}
+  
+char resposta[5];
+void lerResposta() {
+    printf("Palavra ao contrario: ");
+    scanf("%4s", resposta);
+}
+
+void verificarResposta() {
+    char letra;
+    char letraCerta;
+    for (int i = 0; i < 4; i++){
+        letra = resposta[i];
+        peek(&pilha, &letraCerta);
+        if (letra != letraCerta) {
+            printf("Letra incorreta: %c (esperado: %c)\n", letra, letraCerta);
+            gameOver = 1;
+            break;
+        }
+        pop(&pilha, &letraCerta);
+    }
+}
+
+void atualizarEstadoJogo() {
+
+}
 
 int main() {
-    Stack s;
-    createStack(&s);
+    srand(time(NULL));
 
-    int running = 1;
-    int frame = 0;
-    while (running) {
-        printf("Frame atual: %d\n", frame++);
-
-        int input = waitInputForFrame(1000); // Espera por 1 segundo ou até uma tecla ser pressionada
-
-        if (input == -1) {
-            printf("voce perdeu");
-        }   
-        else {
-            printf("Tecla pressionada: %c\n", input);
-        } 
+    while(gameOver != 1) {
+        criarPilha();
+        imprimirPalavra();
+        lerResposta();
+        verificarResposta();
+        atualizarEstadoJogo();
     }
-    destroyStack(&s);
-    return 0;
+
+    destroyStack(&pilha);
+    //clearScreen();
+    printf("Game Over!\n");
+    
+    return 0;   
 }
