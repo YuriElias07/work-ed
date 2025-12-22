@@ -1,0 +1,1 @@
+int getKeyWithTimeout(int timeout_ms);
