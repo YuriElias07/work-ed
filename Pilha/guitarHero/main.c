@@ -1,4 +1,4 @@
-#ifdef _WIN32
+#ifdef _WIN32// adaptado para windows e linux 
     #include <windows.h>
     #define SLEEP(ms) Sleep(ms)
 #else
@@ -11,11 +11,15 @@
 #include "pilha.h"
 #include "receptTImer.h"
 
-#define Timer 3000
+#define TimerFacil 3000
+#define TimerMedio 2000
+#define TimerDificil 1000
+
 #define FACIL 15
 #define MEDIO 25
 #define DIFICIL 35
 int gameOver = 1;
+int lifes = 3;
 Stack pilha;
 
 //telas para simular frames do jogo
@@ -109,19 +113,27 @@ void criarPilha(int gameMode) {
 
 
 void imprimirPosition() {
+    printf("Vidas: %d\n", lifes);
+
     int position;
     peek(&pilha, &position);
     printTelaBotao(position);
 }
 
-void lerResposta() {
+void lerResposta(int gameMode) {
+    int timer;
+    if(gameMode == 1) timer = TimerFacil;
+    else if(gameMode == 2) timer = TimerMedio;
+    else if(gameMode == 3) timer = TimerDificil;
+
+    
+
     int position;
     pop(&pilha, &position);//ja remove o elemento do topo da pilha
-    int resposta = getKeyWithTimeout(Timer);
+    int resposta = getKeyWithTimeout(timer);
     if (resposta == -1 || resposta - '1' != position) {
-        printf("Resposta incorreta ou tempo esgotado!\n");
-        SLEEP(3000);
-        gameOver = 0;
+        //printf("Resposta incorreta ou tempo esgotado!\n");
+        lifes--;
     } else if(isEmpty(&pilha)) {
         printf("Voce venceu o jogo!\n");
         SLEEP(3000);
@@ -130,8 +142,32 @@ void lerResposta() {
 
 }
 
+void apresentarJogo(){
+    clearScreen();
+    printf("\t- GuitarHero -\n\n");
+    SLEEP(2000);
+    printf("~ Feito por Joao Victor, Otavio augusto e Yuri Elias.\n\n");
+    SLEEP(3000);
+    printf("* Use as teclas 1 2 3 4 para acertar as notas.\n");
+    SLEEP(6000);
+    clearScreen();
+
+}
+
+void atualizarEstadoJogo() {
+    if (lifes == 0) {
+        gameOver = 0;
+        clearScreen();
+        printf("Suas vidas acabaram!");
+        SLEEP(2000);
+        clearScreen();
+    }
+}
+
 int main() {
     srand(time(NULL));
+
+    apresentarJogo();
 
     int gameMode;
     printf("Escolha o modo de jogo:\n1. Facil\n2. Medio\n3. Dificil\n");
@@ -143,9 +179,9 @@ int main() {
     clearScreen();
     while(gameOver){
         imprimirPosition();
-        lerResposta();
+        lerResposta(gameMode);
         //verificarResposta(); ja verifica na lerResposta
-        //atualizarEstadoJogo(); ja atualiza na lerResposta
+        atualizarEstadoJogo(); 
         clearScreen();
     }
 

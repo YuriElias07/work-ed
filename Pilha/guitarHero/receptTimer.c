@@ -46,7 +46,7 @@ int getKeyWithTimeout(int timeout_ms)
 #ifndef _WIN32
             setRawMode(0);
 #endif
-            printf("\a");
+            printf("\a");// talvez não funcione em macos
             return _getch();
         }
         Sleep(10);
