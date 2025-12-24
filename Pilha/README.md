@@ -32,7 +32,7 @@
     ./jogo
   No Windows, utilize jogo.exe
   
-8️⃣ Possíveis melhorias
+7️⃣ Possíveis melhorias
   - Salvamento de pontuação
   - Implementação de sons e cores
   - Sistema de seleção de músicas pré-definidas
