@@ -6,6 +6,13 @@
 
 3️⃣ Demonstração:
 
+<img width="542" height="128" alt="Image" src="https://github.com/user-attachments/assets/6794624d-4667-46fc-947c-be0f32caf3bd" />
+
+<img width="304" height="106" alt="Image" src="https://github.com/user-attachments/assets/41e073f2-be28-4b35-96e8-7cb29f65e098" />
+
+<img width="498" height="229" alt="Image" src="https://github.com/user-attachments/assets/899495f5-096b-45c6-a1ec-6d3fbcc808fb" />
+
+Nesta ultima foto, por exemplo, a tecla a ser apertada é "2"
 
 4️⃣ Como a pilha foi usada:
   Ao selecionar uma dificuldade, uma pilha é criada usando alocação dinâmica. A quantidade de nós depende da dificulade selecionada e em cada nó existe um número de 0 a 3 para indicar as posições/teclas de 1 a 4 e um ponteiro para o próximo nó. Após ser criada, ela é consumida aos poucos usando a função pop a cada iteração do loop presente no jogo. Dessa forma é feito um uso completo de todas as funções da estrutura de dados Pilha: 
