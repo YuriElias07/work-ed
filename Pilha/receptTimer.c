@@ -4,7 +4,7 @@
 #else
 #include <unistd.h>
 #include <termios.h>
-#endif
+#endif// adaptado para windows ou linux
 
 #include <stdio.h>
 
