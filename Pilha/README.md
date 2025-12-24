@@ -27,7 +27,7 @@
 6️⃣ Como compilar e executar
 
   Compile usando o GCC:
-    "gcc main.c pilha.c jogo.c -o jogo"
+    "gcc main.c pilha.c receptTimer.c -o jogo"
   Execute: 
     ./jogo
   No Windows, utilize jogo.exe
