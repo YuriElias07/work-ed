@@ -1,20 +1,22 @@
 #ifndef PILHA_H
 #define PILHA_H
 
-typedef struct {
-    int* cordenadas;
-    int top;
-    int count;
-    int capacity;
-} Tower;
+typedef struct Node{
+    int position;
+    struct Node* next;
+} Node;
 
-int createTower(Tower* tower, int mode);
-void destroyTower(Tower* tower);
-void clearTower(Tower* tower);
-int towerIsEmpty(const Tower* tower);
-int towerIsFull(const Tower* tower);
-int pushTower(Tower* tower, int coord);
-int popTower(Tower* tower, int* coord);
-int peekTower(const Tower* tower, int* coord);
+typedef struct {
+    Node* top;
+    int size;
+} Stack;
+
+int createStack(Stack* s);
+int isEmpty(Stack* s);
+int StackSize(Stack* s);
+int push(Stack* s, int position);
+int pop(Stack* s, int* position);
+int peek(Stack* s, int* position);
+void destroyStack(Stack* s);
 
 #endif
