@@ -18,18 +18,26 @@
 
 📦 jogo-pilha
  ┣ 📜 main.c        → Arquivo principal do jogo
+ 
  ┣ 📜 pilha.h       → Definição da estrutura Pilha e protótipos
+ 
  ┣ 📜 pilha.c       → Implementação das operações da pilha
+ 
  ┣ 📜 receptTimer.c → Lógica da recepção das teclas
+ 
  ┣ 📜 receptTimer.h → Protótipo 
+ 
  ┗ 📜 README.md     → Documentação do projeto
+ 
 
 6️⃣ Como compilar e executar
 
   Compile usando o GCC:
-    "gcc main.c pilha.c receptTimer.c -o jogo"
+    gcc main.c pilha.c receptTimer.c -o jogo
+    
   Execute: 
     ./jogo
+  
   No Windows, utilize jogo.exe
   
 7️⃣ Possíveis melhorias
