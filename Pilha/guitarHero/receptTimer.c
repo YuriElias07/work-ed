@@ -29,10 +29,10 @@ void setRawMode(int enable)
 #endif
 
 // Retorna a tecla pressionada ou -1 se o tempo acabar
-int getKeyWithTimeout(int timeout_ms)
+int getKeyWithTimeout(int timeout_ms, int* minuspoints)
 {
     int elapsed = 0;
-
+    *minuspoints = 0;
 #ifndef _WIN32
     setRawMode(1);
 #endif
@@ -47,6 +47,7 @@ int getKeyWithTimeout(int timeout_ms)
             setRawMode(0);
 #endif
             printf("\a");// talvez não funcione em macos
+            *minuspoints += elapsed;
             return _getch();
         }
         Sleep(10);
@@ -56,18 +57,17 @@ int getKeyWithTimeout(int timeout_ms)
         if (read(0, &c, 1) == 1)
         {
             setRawMode(0);
+            *minuspoints += elapsed;
             return c;
         }
         usleep(10000);
 #endif
-
         elapsed += 10;
     }
 
 #ifndef _WIN32
     setRawMode(0);
 #endif
-
     return -1;
 }
 

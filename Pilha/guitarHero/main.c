@@ -11,15 +11,17 @@
 #include "pilha.h"
 #include "receptTImer.h"
 
-#define TimerFacil 3000
-#define TimerMedio 2000
-#define TimerDificil 1000
+#define TimerFacil 2000
+#define TimerMedio 1000
+#define TimerDificil 500
 
 #define FACIL 15
 #define MEDIO 25
 #define DIFICIL 35
 int gameOver = 1;
 int lifes = 3;
+int points = 0;
+int minuspoints;
 Stack pilha;
 
 //telas para simular frames do jogo
@@ -113,7 +115,7 @@ void criarPilha(int gameMode) {
 
 
 void imprimirPosition() {
-    printf("Vidas: %d\n", lifes);
+    printf("Vidas: %d   Pontuacao: %d\n", lifes, points);
 
     int position;
     peek(&pilha, &position);
@@ -130,15 +132,22 @@ void lerResposta(int gameMode) {
 
     int position;
     pop(&pilha, &position);//ja remove o elemento do topo da pilha
-    int resposta = getKeyWithTimeout(timer);
+    int resposta = getKeyWithTimeout(timer, &minuspoints);
     if (resposta == -1 || resposta - '1' != position) {
         //printf("Resposta incorreta ou tempo esgotado!\n");
         lifes--;
+        return;
     } else if(isEmpty(&pilha)) {
+        clearScreen();
+        points += timer - minuspoints;
         printf("Voce venceu o jogo!\n");
         SLEEP(3000);
+        printf("Pontuacao final: %d", points);
+        SLEEP(5000);
         gameOver = 0;
+        return;
     }
+    points += timer - minuspoints;
 
 }
 
@@ -158,8 +167,10 @@ void atualizarEstadoJogo() {
     if (lifes == 0) {
         gameOver = 0;
         clearScreen();
-        printf("Suas vidas acabaram!");
+        printf("Suas vidas acabaram!\n\n");
         SLEEP(2000);
+        printf("Pontuacao final: %d", points);
+        SLEEP(5000);
         clearScreen();
     }
 }

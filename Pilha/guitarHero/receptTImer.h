@@ -1,1 +1,1 @@
-int getKeyWithTimeout(int timeout_ms);
+int getKeyWithTimeout(int timeout_ms, int* minuspoints);
