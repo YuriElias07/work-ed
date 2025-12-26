@@ -58,4 +58,4 @@ Este projeto utiliza **GCC** como compilador principal.
 Quando os arquivos estiverem prontos, compile usando:
 
 ```bash
-gcc arquivo1.c arquivo2.c arquivo3.c ... -o jogos_estrutura_dados
+gcc main.c -o para cada diretório contendo o jogo com a estrutura desejada
